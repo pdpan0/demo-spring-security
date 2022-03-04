@@ -7,10 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails
 class UserDetail(
     private val user: User
 ) : UserDetails {
-    override fun getAuthorities() = null
 
+    /* Roles do Usuário */
+    override fun getAuthorities() = user.role
+
+    /* Senha do Usuário */
     override fun getPassword() = user.password
 
+    /* Username do Usuário */
     override fun getUsername() = user.username
 
     override fun isAccountNonExpired(): Boolean = true

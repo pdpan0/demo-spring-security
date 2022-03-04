@@ -20,6 +20,8 @@ class SecurityConfiguration(
         http?.
         /* Autoriza a requisição */
         authorizeRequests()?.
+        /* Adiciona autorização do recurso baseado no perfil criado */
+        antMatchers("/greetings")?.hasAuthority("LEITURA_ESCRITA")?.
         /* Qualquer requisição */
         anyRequest()?.
         /* Precisa estar autenticado */
