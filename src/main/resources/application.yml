@@ -1,0 +1,3 @@
+# Configura o secret do token JWT
+jwt:
+  secret: secreto

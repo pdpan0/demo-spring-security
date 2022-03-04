@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.security:spring-security-test")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -29,6 +30,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
