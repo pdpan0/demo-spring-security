@@ -1,16 +1,21 @@
 package com.pdpano.imc.config
 
+import com.pdpano.imc.models.Role
+import com.pdpano.imc.services.UserService
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.GrantedAuthority
 import org.springframework.stereotype.Component
 import java.util.Date
 
 /* Classe responsável pela geração do token JWT */
 @Component
-class JWTUtil {
+class JWTUtil(
+    private val userService: UserService
+) {
     private val expiration: Long = 60000
 
     @Value("\${jwt.secret}")
@@ -21,9 +26,10 @@ class JWTUtil {
      * É necessário aplicar a seguinte dependência:
      * implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
     */
-    fun generateToken(username: String): String? {
+    fun generateToken(username: String, authorities: List<Role>): String? {
         return Jwts.builder()
             .setSubject(username)
+            .claim("role", authorities)
             .setExpiration(Date(System.currentTimeMillis() + expiration))
             .signWith(SignatureAlgorithm.HS512, secret.toByteArray())
             .compact()
@@ -42,6 +48,7 @@ class JWTUtil {
     /* Metódo abre o token JWT e retorna a autenticação do usuário */
     fun getAuthentication(jwt: String?): Authentication {
         val username = Jwts.parser().setSigningKey(secret.toByteArray()).parseClaimsJws(jwt).body.subject
-        return UsernamePasswordAuthenticationToken(username, null, null)
+        val user = userService.loadUserByUsername(username)
+        return UsernamePasswordAuthenticationToken(username, null, user.authorities)
     }
 }

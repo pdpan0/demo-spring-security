@@ -29,7 +29,7 @@ class SecurityConfiguration(
         /* Autoriza a requisição */
         authorizeRequests()?.
         /* Adiciona autorização do recurso baseado no perfil criado */
-//        antMatchers("/greetings")?.hasAuthority("LEITURA_ESCRITA")?.
+        antMatchers("/greetings")?.hasAuthority("LEITURA_ESCRITA")?.
             mvcMatchers(HttpMethod.POST,"/login")?.permitAll()?.
         /* Qualquer requisição */
         anyRequest()?.
