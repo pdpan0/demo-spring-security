@@ -1,3 +1,4 @@
 # Configura o secret do token JWT
-jwt:
-  secret: secreto
+spring:
+  profiles:
+    default: dev

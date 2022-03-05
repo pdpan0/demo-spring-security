@@ -1,0 +1,5 @@
+pdpano:
+  imc:
+    buildNumber: 2.0-yml
+jwt:
+  secret: secreto1
